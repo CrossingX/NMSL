@@ -1,0 +1,112 @@
+\documentclass{article}  % 选择模版，这里是使用Latex自带的article模版
+    \title{Numerical Computing Homework 1}
+    \author{Shaosen Hou 18340055}
+    \usepackage{multirow}   % 插入表格用到的宏包
+    \usepackage{enumerate}
+    \usepackage{threeparttable}
+    \usepackage{amsmath,bm}
+\begin{document} 
+    \maketitle
+
+        \subsection*{Page 13} 
+        \paragraph{14.}Use synthetic division (Horner’s method) to find \(P(c)\).
+        \begin{enumerate}[(a)]
+            \item \(P(x) = x^4 + x^3 - 13x^2 - x - 12\), \(c = 3\)
+            \item \(P(x) = 2x^7 + x^6 + x^5 - 2x^4 - x + 23\), \(c = -1\)
+        \end{enumerate}
+            \paragraph{Solution:}
+            \paragraph{(a)}
+            \renewcommand\tabcolsep{12.0pt} % 调整表格列间的宽度
+            \begin{threeparttable} % 需要加载 threeparttable 包
+                \begin{tabular}{rrrrrrl} 
+                 & & \(a_4\) & \(a_3\) & \(a_2\) & \(a_1\) & \(a_0\) \\ 
+                \cline{1-1}
+                \multicolumn{1}{c|}{Input} & & \(1\) & \(1\) & \(-13\) & \(-1\) & \(-12\)\\ 
+                \multicolumn{1}{c|}{\(c=3\)} & & & \(3\) & \(12\) & \(-3\) & \(-24\)\\
+                \hline
+                 & & \(1\) & \(4\) & \(-1\) & \multicolumn{1}{c|}{-4} & \(-24 = P(3) = b_0\)\\
+                 & & \(b_4\) & \(b_3\) & \(b_2\) & \multicolumn{1}{c|}{\(b_1\)} & \(Output\)\\
+                \cline{7-7}
+                \end{tabular} 
+            \end{threeparttable}
+            \paragraph{}Therefore, \(P(3) = -24.\)
+            \paragraph{(b)}
+            \renewcommand\tabcolsep{10.0pt} % 调整表格列间的宽度
+            \begin{threeparttable} % 需要加载 threeparttable 包
+                \begin{tabular}{rrrrrrrl} 
+                 & & \(a_7\) & \(a_6\) & \(a_5\) & \(a_4\) & \(a_1\) & \(a_0\)\\ 
+                \cline{1-1}
+                \multicolumn{1}{c|}{Input} & & \(2\) & \(1\) & \(1\) & \(-2\) & \(-1\) & \(23\)\\ 
+                \multicolumn{1}{c|}{\(c=-1\)} & & & \(-2\) & \(1\) & \(-2\) & \(4\) & \(-3\)\\
+                \hline
+                 & & \(2\) & \(-1\) & \(2\) & \(-4\) & \multicolumn{1}{c|}{3} & \(20 = P(3) = b_0\)\\
+                 & & \(b_7\) & \(b_6\) & \(b_5\) & \(b_4\) & \multicolumn{1}{c|}{\(b_1\)} & \(Output\)\\
+                \cline{8-8}
+                \end{tabular} 
+            \end{threeparttable}
+            \paragraph{}Therefore, \(P(-1) = 20.\)
+
+        \subsection*{Page 37} 
+        \paragraph{1.}Find the error \(E_x\) and relative error \(R_x\). Also determine the number of significant digits in the approximation.
+        \begin{enumerate}[(a)]
+            \item \(x = 2.71828182\), \(\hat{x} = 2.7182\)
+            \item \(y = 98,350\), \(\hat{y} = 98,000\)
+            \item \(z = 0.000068\), \(\hat{z} = 0.00006\)
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{(a)}The error is 
+        $$E_x = |x - \hat{x}| = |2.71828182 - 2.7182| = 0.00008182,$$
+        and the relative error is
+        $$R_x = \frac{|x - \hat{x}|}{|x|} = \frac{0.00008182}{2.71828182} = 0.00003010 < \frac{10^{-4}}{2},$$
+        Therefore, \(\hat{x}\) approximates \(x\) to \(5\) significant digits. 
+        \paragraph{(b)}The error is 
+        $$E_y = |y - \hat{y}| = |98350 - 98000| = 350,$$
+        and the relative error is
+        $$R_y = \frac{|y - \hat{y}|}{|y|} = \frac{350}{98350} = 0.003559 < \frac{10^{-2}}{2},$$
+        Therefore, \(\hat{y}\) approximates \(y\) to \(3\) significant digits. 
+        \paragraph{(c)}The error is 
+        $$E_z = |z - \hat{z}| = |0,000068 - 0.00006| = 0.000008,$$
+        and the relative error is
+        $$R_z = \frac{|z - \hat{z}|}{|z|} = \frac{0.000008}{0.000068} = 0.117647 < \frac{10^{0}}{2},$$
+        Therefore, \(\hat{z}\) approximates \(z\) to \(1\) significant digits. 
+        \paragraph{3.}
+        \begin{enumerate}[(a)]
+            \item Consider the data \(p_1 = 1.414\) and \(p_2 = 0.09125\), which have four significant digits of accuracy. Determine the proper answer for the sum \(p_1 + p_2\) and the product \(p_1p_2\).
+            \item Consider the data \(p_1 = 31.415\) and \(p_2 = 0.027182\), which have five significant digits of accuracy. Determine the proper answer for the sum \(p_1 + p_2\) and the product \(p_1p_2\).
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{(a)}
+        $$p_1 + p_2 = 1.414 + 0.09125 = 1.505$$
+        $$p_1p_2 = 1.414 \times 0.09125 = 0.1290$$
+        \paragraph{(b)}
+        $$p_1 + p_2 = 31.415 + 0.027182 = 31.442$$
+        $$p_1p_2 = 31.415 \times 0.027182 = 0.85392$$
+        \paragraph{9.} Given the Taylor polynomial expansions
+        $$\frac{1}{1-h} = 1 + h + h^2 + h^3 + \bm{O}(h^4)$$
+        and
+        $$cos(h) = 1 - \frac{h^2}{2!} + \frac{h^4}{4!} + \bm{O}(h^6),$$
+        determine the order of approximation for their sum and product.
+        \paragraph{Solution:}
+        \paragraph{}For the sum we have
+        \begin{align*}
+        \frac{1}{1-h} + cos(h) &= 1 + h + h^2 + h^3 + \bm{O}(h^4) + 1 - \frac{h^2}{2!} + \frac{h^4}{4!} + \bm{O}(h^6) \\
+        &= 2 + h + \frac{h^2}{2} + h^3 + \bm{O}(h^4) + \frac{h^4}{4!} + \bm{O}(h^6).
+        \end{align*}
+        Since \(\bm{O}(h^4) + \frac{h^4}{4!} = \bm{O}(h^4)\) and \(\bm{O}(h^4) + \bm{O}(h^6) = \bm{O}(h^4)\), this reduces to
+        $$\frac{1}{1-h} + cos(h) = 2 + h + \frac{h^2}{2} + h^3 + \bm{O}(h^4),$$
+        and the order of approximates is \(\bm{O}(h^4)\).
+        \paragraph{}The product is treated similarly:
+        \[ \begin{split}
+            \frac{1}{1-h} \times cos(h) &= \bigg(1 + h + h^2 + h^3 + \bm{O}(h^4) \bigg)\left(1 - \frac{h^2}{2!} + \frac{h^4}{4!} + \bm{O}(h^6)\right) \\
+            &= \bigg(1 + h + h^2 + h^3\bigg)\bigg(1 - \frac{h^2}{2!} + \frac{h^4}{4!}\bigg) \\ 
+            &\quad+ \bigg(1 + h + h^2 + h^3\bigg)\bm{O}(h^6) + \bigg(1 - \frac{h^2}{2!} + \frac{h^4}{4!}\bigg)\bm{O}(h^4) \\
+            &\quad+ \bm{O}(h^4)\bm{O}(h^6) \\
+            &= 1 + h + \frac{h^2}{2} + \frac{h^3}{2} - \frac{11h^4}{24} - \frac{11h^5}{24} + \frac{h^6}{24} + \frac{h^7}{24} \\
+            &\quad+ \bm{O}(h^6) + \bm{O}(h^4) + \bm{O}(h^4)\bm{O}(h^6) 
+        \end{split} \]
+        Since $\bm{O}(h^4)\bm{O}(h^6) = \bm{O}(h^{10})$ and
+        $$- \frac{11h^4}{24} - \frac{11h^5}{24} + \frac{h^6}{24} + \frac{h^7}{24} + \bm{O}(h^6) + \bm{O}(h^4) + \bm{O}(h^{10}) = \bm{O}(h^4),$$
+        the preceding equation is simplified to yield
+        $$\frac{1}{1-h} \times cos(h) = 1 + h + \frac{h^2}{2} + \frac{h^3}{2} + \bm{O}(h^4),$$ 
+        and the order of approximates is \(\bm{O}(h^4)\).
+\end{document}
