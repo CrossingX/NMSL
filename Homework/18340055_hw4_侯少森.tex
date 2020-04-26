@@ -1,0 +1,252 @@
+\documentclass{article}  % 选择模版，这里是使用Latex自带的article模版
+    \title{Numerical Computing Homework 4}
+    \author{Shaosen Hou 18340055}
+    \usepackage{multirow}   % 插入表格用到的宏包
+    \usepackage{enumerate}
+    \usepackage{threeparttable}
+    \usepackage{amsmath,bm}
+    \usepackage{amsfonts}
+    \usepackage[noend]{algpseudocode}
+    \usepackage{subcaption}
+    \usepackage[english]{babel}	
+    \usepackage{paralist}	
+    \usepackage[lowtilde]{url}
+    \usepackage{listings}
+    \usepackage{color}
+    \usepackage{hyperref}
+    \usepackage{mathtools}
+\begin{document}
+    \maketitle
+        \subsection*{Page 195} 
+        \paragraph{1(b).}Let $f(x) = \sin(x)$ and apply Theorem 4.1. Show that if $|x| \le 1$, then the approximation 
+        $$\sin(x) \approx x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!}$$
+        has the error bound $|E_9(x)| < 1/10! \le 2.75574 \times 10^{-7}.$
+        \paragraph{Solution:}
+        \paragraph{}Because $|x| \le 1, |x_0| = |0| \le 1,$ from Theorem 4.1 we could obtain that
+        $$|E_9(x)| = |\frac{f^{10}(c)}{10!}(x - 0)^{10}| = \frac{sin(c)}{10!}x^{10} \le \frac{1}{10!} \le 2.75574 \times 10^{-7}$$
+        for some value $c = c(x)$ that lies between 0 and 1.
+        \paragraph{2(b).}Let $f(x) = \cos(x)$ and apply Theorem 4.1. Show that if $|x| \le 1$, then the approximation 
+        $$\cos(x) \approx 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \frac{x^8}{8!}$$
+        has the error bound $|E_8(x)| < 1/9! \le 2.75574 \times 10^{-6}.$
+        \paragraph{Solution:}
+        \paragraph{}Because $|x| \le 1, |x_0| = |0| \le 1,$ from Theorem 4.1 we could obtain that
+        $$|E_8(x)| = |\frac{f^{9}(c)}{9!}(x - 0)^{9}| = \frac{sin(c)}{9!}x^{9} \le \frac{1}{9!} \le 2.75574 \times 10^{-6}$$
+        for some value $c = c(x)$ that lies between 0 and 1.
+        \subsection*{Page 205}
+        \paragraph{2.}Consider $P(x) = -0.04x^3 + 0.14x^2 - 0.16x + 2.08$, which passes through the four points $(0, 2.08), (1, 2.02), (2, 2.00),$ and $(4, 1.12)$.
+        \begin{enumerate}
+            \item[(a)]  Find $P(3)$.
+            \item[(b)]  Find $P'(3)$.
+            \item[(c)]  Find the definite integral of $P(x)$ taken over $[0, 3]$.
+            \item[(d)]  Find the extrapolated value $P(4.5)$.
+            \item[(e)]  Show how to find the coefficients of $P(x)$.
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{(a)}We could use Horner's methods to find $P(3)$:
+        \begin{align*}
+            b_3 &= a_3 = -0.04\\
+            b_2 &= a_2 + b_3x = 0.14 + (-0.04) \times 3 = 0.02\\
+            b_1 &= a_1 + b_2x = -0.16 + 0.02 \times 3 = -0.1\\
+            b_0 &= a_0 + b_1x = 2.08 + (-0.1) \times 3 = 1.78
+        \end{align*}
+        \paragraph{}The interpolated value is $P(3) = 1.78$.
+        \paragraph{(b)}Similarly, we could use Horner's methods to find $P'(3)$:
+        \begin{align*}
+            d_2 &= 3a_3 = 3 \times (-0.04) = -0.12\\
+            d_1 &= 2a_2 + d_2x = 2 \times 0.14 + (-0.12) \times 3 = -0.08\\
+            d_0 &= a_1 + d_1x = -0.16 + (-0.08) \times 3 = -0.4
+        \end{align*}
+        \paragraph{}The numerical derivative is $P'(3) = -0.4$.
+        \paragraph{(c)}Similarly, we could use Horner's methods to find $\int_0^3 P(x)\mathrm{d}x$:
+        \begin{align*}
+            i_4 &= \frac{a_3}{4} = \frac{-0.04}{4} = -0.01\\
+            i_3 &= \frac{a_2}{3} + i_4x = \frac{0.14}{3} + (-0.01) \times 3 = 0.0166667\\
+            i_2 &= \frac{a_1}{2} + i_3x = \frac{-0.16}{2} + 0.0166667 \times 3 = -0.03\\
+            i_1 &= a_0 + i_2x = 2.08 + (-0.03) \times 3 = 1.99\\
+            i_0 &= i_1x = 1.99 \times 3 = 5.97
+        \end{align*}
+        \paragraph{}Hence $I(3) = 5.97$. Similarly, $I(0) = 0$.
+        \paragraph{}Therefore, $\int_0^3 P(x)\mathrm{d}x = I(3) - I(0) = 5.97$.
+        \paragraph{(d)}We could use Horner's methods to find $P(4.5)$:
+        \begin{align*}
+            b_3 &= a_3 = -0.04\\
+            b_2 &= a_2 + b_3x = 0.14 + (-0.04) \times 4.5 = -0.04\\
+            b_1 &= a_1 + b_2x = -0.16 + (-0.04) \times 4.5 = -0.34\\
+            b_0 &= a_0 + b_1x = 2.08 + (-0.34) \times 4.5 = 0.55
+        \end{align*}
+        \paragraph{}The extrapolated value is $P(4.5) = 0.55$.
+        \paragraph{(e)}The methods of Chapter 3 can be used to ﬁnd the coefﬁcients. Assume that $P(x) = A + Bx + Cx_2 + Dx_3;$ then at each value $x = 0, 1, 2,$ and $4$ we get a linear equation involving A, B, C, and D.
+        \paragraph{}
+        \renewcommand\tabcolsep{6.0pt} % 调整表格列间的宽度
+            \begin{threeparttable} % 需要加载 threeparttable 包
+                \begin{tabular}{rrrrrrrrrrr} 
+                & At $x = 0$: & $A$ & + & 0 & + & 0 & + & 0 & = & 2.08 \\ 
+                & At $x = 1$: & $A$ & + & $B$ & + & $C$ & + & $D$ & = & 2.02 \\ 
+                & At $x = 2$: & $A$ & + & $2B$ & + & $4C$ & + & $8D$ & = & 2.00 \\ 
+                & At $x = 4$: & $A$ & + & $4B$ & + & $16C$ & + & $64D$ & = & 1.12 \\ 
+                \end{tabular} 
+            \end{threeparttable}
+        \paragraph{}The solution is 
+        \begin{align*}
+            A &=  2.08  \\
+            B &=  -0.16  \\
+            C &=  0.14  \\
+            D &=  -0.04 
+        \end{align*}
+        \subsection*{Page 217}
+        \paragraph{1.}Find the Lagrange polynomials that approximation $f(x) = x^3$.
+        \begin{enumerate}
+            \item[(a)] 
+            Find the linear interpolation polynomial $P_1(x)$ using the nodes $x_0 = -1$ and $x_1 = 0$.
+            \item[(b)]
+            Find the quadratic interpolation polynomial $P_2(x)$ using nodes $x_0 = -1, x_1 = 0, x_2 = 1$.
+            \item[(c)]
+            Find the cubic interpolation polynomial $P_3(x)$ using the nodes $x_0 = -1, x_ 1 = 0, x_2 = 1$ and $x_3 = 2$.
+            \item[(d)]
+            Find the linear interpolation polynomial $P_1(x)$ using the nodes $x_0 = 1$ and $x_1 = 2$.
+            \item[(e)]
+            Find the quadratic interpolation polynomial $P_2(x)$ using the nodes $x_0 = 0, x_1 = 1$ and $x_2 = 2$.
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{}We know that a polynomial $P_N(x)$ of degree at most $N$ that passes through the $N + 1$ points $(x_0, y_0), (x_1, y_1), \cdots (x_N, y_N)$ and has the form
+        $$P_N(x) = \sum_{k=0}^{N}y_kL_{N,k}(x),$$
+        where $L_{N,k}$ is the Lagrange coefficient polynomial based on these nodes:
+        $$L_{N, k}(x) = \frac{\prod_{j=0, j \ne k}^N(x - x_j)}{\prod_{j=0, j \ne k}^N(x_k - x_j)}.$$
+        \paragraph{(a)}Using $P_N(x)$ with the abscissas $x_0 = -1$ and $x_1 = 0$ and the ordinates $y_0 = (-1)^3= -1$ and $y_1 = 0^3 = 0$ produces
+        \begin{align*}
+          P_1(x) &= -1\frac{x - 0}{-1 - 0} + 0\frac{x - (-1)}{0 - (-1)}\\
+          &= x
+        \end{align*}
+        \paragraph{(b)}Using $x_0 = -1, x_1 = 0, x_2 = 1$ and $y_0 = (-1)^3 = -1, y_1 = 0^3 = 0, y_2 = 1^3 = 1$ produces
+        \begin{align*}
+          P_2(x) &= -1\frac{(x - 0)(x - 1)}{(-1 - 0)(-1 - 1)} + 0\frac{(x - (-1))(x - 1)}{(0 - (-1))(0 - 1)}\\
+          &+ 1\frac{(x - (-1))(x - 0)}{(1 - (-1))(1 - 0)}\\
+          &= -1\frac{x(x-1)}{2} + 0 + \frac{x(x+1)}{2} \\
+          &= x
+        \end{align*}
+        \paragraph{(c)}Using $x_0 = -1, x_1 = 0, x_2 = 1, x_3 = 2$ and $y_0 = (-1)^3 = -1, y_1 = 0^3 = 0, y_2 = 1^3 = 1, y_3 = 2^3 = 8$ produces
+        \begin{align*}
+          P_3(x) &= -1\frac{(x - 0)(x - 1)(x - 2)}{(-1 - 0)(-1 - 1)(-1 - 2)} \\
+          &+ 0\frac{(x - (-1))(x - 1)(x - 2)}{(0 - (-1))(0 - 1)(0 - 2)} \\
+          &+ 1\frac{(x - (-1))(x - 0)(x - 2)}{(1 - (-1))(1 - 0)(1 - 2)} \\
+          &+ 8\frac{(x - (-1))(x - 0)(x - 1)}{(2 - (-1))(2 - 0)(2 - 1)} \\
+          &= -1\frac{x(x - 1)(x - 2)}{-6} + 0 \\
+          &+ \frac{x(x + 1)(x - 2)}{-2} \\
+          &+ 8\frac{x(x + 1)(x - 1)}{6} \\
+          &= x^3
+        \end{align*}
+        \paragraph{(d)}Same as (a), we could easily obtain $P_1(x)$:
+        \begin{align*}
+          P_1(x) &= 1\frac{x - 2}{1 - 2} + 8\frac{x - 1}{2 - 1}\\
+          &= 7x - 6
+        \end{align*}
+        \paragraph{(e)}Same as (b), we could easily obtain $P_2(x)$:
+        \begin{align*}
+          P_2(x) &= 0\frac{(x - 1)(x - 2)}{(0 - 1)(0 - 2)} + 1\frac{(x - 0)(x - 2)}{(1 - 0)(1 - 2)}\\
+          &+ 8\frac{(x - 0)(x - 1)}{(2 - 0)(2 - 1)}\\
+          &= 0 + 1\frac{x(x-2)}{-1} + \frac{x(x - 1)}{2} \\
+          &= 3x^2 - 2x
+        \end{align*}
+        \paragraph{2.}Let $f(x) = x + 2 / x$.
+        \begin{enumerate}
+            \item[(a)] 
+            Use quadratic Lagrange interpolation based on the nodes $x_0 = 1, x_1 = 2$, and $x_2 = 2.5$ to approximate $f(1.5)$ and $f(1.2)$.
+            \item[(b)]
+            Use cubic Lagrange interpolation based on the nodes $x_0 = 0.5, x_1 = 1, x_2 = 2, $ and $x_3 = 2.5$ to approximate $f(1.5)$ and $f(1.2)$. 
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{(a)}Similar to Exercise 1, we could easily obtain $P_2(x)$:
+        \begin{align*}
+          P_2(x) &= 3\frac{(x - 2)(x - 2.5)}{(1 - 2)(1 - 2.5)} + 3\frac{(x - 1)(x - 2.5)}{(2 - 1)(2 - 2.5)}\\
+          &+ 3.3\frac{(x - 1)(x - 2)}{(2.5 - 1)(2.5 - 2)}\\
+          &= 0 + 1\frac{x(x-2)}{-1} + \frac{x(x - 1)}{2} \\
+          &= 0.4x^2 - 1.2x + 3.8
+        \end{align*}
+        \paragraph{}Thus,
+        \begin{align*}
+          f(1.5) &\approx P_2(1.5) = 2.9 \\
+          f(1.2) & \approx P_2(1.2) = 2.936
+        \end{align*}
+        \paragraph{(b)}Similar to Exercise 1, we could easily obtain $P_3(x)$:
+        \begin{align*}
+          P_3(x) &= -0.8x^3 + 4.8x^2 -8.8x +7.8 \\
+        \end{align*}
+        \paragraph{}Thus, 
+        \begin{align*}
+          f(1.5) &\approx P_3(1.5) = 2.7 \\
+          f(1.2) & \approx P_3(1.2) = 2.7696
+        \end{align*}
+        \subsection*{Page 229}
+        \paragraph{7.}
+        Given that $f(x) = 3\sin^2(\pi x / 6), x = 1.5, 3.5$.
+        \begin{table}[h] \label{tab:newton}
+        \centering 
+        \begin{tabular}{c|c|c}
+            \hline
+            $k$ & $x_k$ & $f(x_k)$ \\
+            \hline
+            0 & 0.0 & 0.00 \\
+            1 & 1.0 & 0.75 \\
+            2 & 2.0 & 2.25 \\
+            3 & 3.0 & 3.00 \\
+            4 & 4.0 & 2.25 \\
+            \hline
+        \end{tabular}
+        \end{table}
+        \begin{enumerate}
+        \item[(a)] 
+        Compute the divide-difference table for the tabulated function.
+        \item[(b)]
+        Write down the Newton polynomials $P_1(x), P_2(x), P_3(x)$, and $P_4(x)$.
+        \item[(c)]
+        Evaluate the Newton polynomials in part (b) at the given values of $x$.
+        \item[(d)]
+        Compare the values in part (c) with the actual function value $f(x)$.
+        \end{enumerate}
+        \paragraph{Solution:}
+        \paragraph{(a)}The divide-difference table for the tabulated function is as follows:
+        \paragraph{}
+        \renewcommand\tabcolsep{12.0pt} % 调整表格列间的宽度
+            \begin{threeparttable} % 需要加载 threeparttable 包
+              %\centering
+                \begin{tabular}{c|c|c|c|c|c} 
+              \hline
+              $x_k$ & $f[x_k]$ & $f[ , ]$  & $f[ , , ]$ & $f[ , , , ]$ & $f[ , , , , ]$ \\
+              \hline
+              $x_0 = 0$ & 0.00 & 0 & 0 & 0 & 0\\
+              \cline{2-2}
+              $x_1 = 1$ & 0.75 & 0.75 & 0 & 0 & 0\\
+              \cline{2-3}
+              $x_2 = 2$ & 2.25 & 1.5 & 0.375 & 0 & 0\\
+              \cline{2-4}
+              $x_3 = 3$ & 3.00 & 0.75 & -0.375 & -0.25 & 0\\
+              \cline{2-5}
+              $x_4 = 4$ & 2.25 & -0.75 & -0.75 & -0.125 & 0.03125\\
+              \hline
+            \end{tabular} 
+          \end{threeparttable}
+        \paragraph{(b)}The Newton polynomial is
+        $$P_N(x) = a_0 + a_1(x - x_0) + \cdots + a_N(x - x_0)(x - x_1)\cdots(x - x_N),$$
+        where $a_k = f_[x_0, x_1 \cdots x_k],$ for $k = 0, 1, \cdots N$.
+        \paragraph{}Thus, 
+        \begin{align*}
+          P_1(x) &= 0 + 0.75(x - 0) \\
+          P_2(x) &= 0 + 0.75(x - 0) + 0.375(x - 0)(x - 1) \\
+          P_3(x) &= 0 + 0.75(x - 0) + 0.375(x - 0)(x - 1) + (-0.25)(x - 0)(x - 1)(x - 2) \\
+          P_4(x) &= 0 + 0.75(x - 0) + 0.375(x - 0)(x - 1) + (-0.25)(x - 0)(x - 1)(x - 2) \\
+          &+0.03125(x - 0)(x - 1)(x - 2)(x - 3)
+        \end{align*}
+        \paragraph{(c)}
+        \begin{align*}
+          P_1(1.5) &= 1.125 & P_1(3.5) &= 2.625\\
+          P_2(1.5) &= 1.40625 & P_1(3.5) &= 5.90625\\
+          P_3(1.5) &= 1.5 & P_1(3.5) &= 2.625\\
+          P_4(1.5) &= 1.517578125 & P_1(3.5) &= 2.830078125
+        \end{align*}
+        \paragraph{(d)}
+        \begin{align*}
+          f(1.5) &= 1.5 & f(3.5) &= 2.799038106\\
+        \end{align*}
+        \paragraph{}$|P_3(1.5) - f(1.5)| = 0$, which is the nearest value between $P_i(1.5)$, $i = 1, 2, 3, 4$.
+        \paragraph{}$|P_4(3.5) - f(3.5)| = 0.03104$, which is the nearest value between $P_i(3.5)$, $i = 1, 2, 3, 4$.
+\end{document}
